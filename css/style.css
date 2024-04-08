@@ -8,9 +8,11 @@
   margin: 0 auto;
 }
 .main {
-  margin: 0 auto;
+  margin: auto;
+  width: auto;
+  background-color: red;
+  border: 1px solid gray;
+  border-radius: 20px;
 }
-li button,li input{
-    padding: 0;
-    margin: 0;
-}
+
+

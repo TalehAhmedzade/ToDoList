@@ -1,27 +1,18 @@
 //birinci x i duzeltmek isteyirem
-const removeList = document.querySelectorAll(`ul button`);
-const list = document.querySelectorAll(`li`);
-console.log(removeList);
-console.log(list);
-
+let removeButtons = document.querySelectorAll(`ul button`);
+let list = document.querySelectorAll(`li`);
 //helelik bu qeder. !Problem x e basilanda butun listler silinir. Arasdirr
-removeList.forEach((button) => {
-  button.addEventListener(`click`, (element) => {
-    console.log(button);
-    list.forEach((li) => {
-      li.remove();
-    });
-  });
-});
-
 // input elave etmek hissesi :
 
 const inputButton = document.querySelector(`.button .input`);
 const ul = document.querySelector(`ul`);
+
 // console.log(inputButton);
 // console.log(ul);
+let data = [];
 
 inputButton.addEventListener(`click`, () => {
+  let firstLi = document.querySelector(`#first`);
   let newLi = document.createElement(`li`);
   let newButton = document.createElement(`button`);
   let newInput = document.createElement(`input`);
@@ -31,29 +22,38 @@ inputButton.addEventListener(`click`, () => {
   newInput.type = `text`;
   newInput.name = `input-text`;
   newInput.classList.add(`input-text`);
+  newLi.append(newButton);
+  newLi.append(newInput);
+  ul.insertBefore(newLi, ul.children[0]);
+  //silinme buttonun ele icinde teyin etmekle problemimiz hell tapir...
+  newButton.addEventListener(`click`, (event) => {
+    newLi.remove();
+    firstLi.remove();
+  });
+  
+  //Elave et duymesinin strukturunu qurmaga calisacam
 
-  newLi.append(newButton, newInput);
-  ul.append(newLi);
-  console.log(ul);
+  //Elave et dediymiz zaman diger inputlar ardiq elcatmaz olmalidir... y
+  //ya da olmali deyil ??
+  //elave et duymesinin meqsedi inputun daxilinde yazilan metnin input daxilinde qalmagidi
+  //hee onda inputumuzda artiq deyisikliyin qarsisi alinmalidi duymeye kliklendiyi zaman
+  //formdan istifade etmeliyik.
+  // const inputForm = document.querySelector(`.input-form`)
+  // console.log(inputAddButton)
+
+  let inputAddButton = document.querySelector(`.button .addition`);
+  inputAddButton.addEventListener(`click`, (event) => {
+    newInput.disabled = true;
+    // console.log(newInput.value);
+  });
 });
 
-//Elave et duymesinin strukturunu qurmaga calisacam
+console.log(data);
 
-//Elave et dediymiz zaman diger inputlar ardiq elcatmaz olmalidir... y
-//ya da olmali deyil ??
-//elave et duymesinin meqsedi inputun daxilinde yazilan metnin input daxilinde qalmagidi
-//hee onda inputumuzda artiq deyisikliyin qarsisi alinmalidi duymeye kliklendiyi zaman
-//formdan istifade etmeliyik.
-const inputAddButton = document.querySelector(`.button .addition`);
-// const inputForm = document.querySelector(`.input-form`)
-// console.log(inputAddButton)
-inputAddButton.addEventListener(`click`, (event) => {
+//sort hissesi
 
-  const data = new FormData(event.target);
-  console.log(data);
-});
-// inputForm.addEventListener((`submit`,(event)=>{
-//     // const data = new FormData(event.target);
-//     // console.log(data.get(`input-text`));
-// }))
-//PROBLEM: elave edilen lileri silmek olmur!!!
+//data arrayi yaradiriq her defe elave et dediymiz zaman bu arraya innerTextimiz elave edilmelidir
+//bos deyerleri yoxlayin
+
+//e.target.parrentElement()
+//getelementByClassName();

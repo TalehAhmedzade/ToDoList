@@ -1,18 +1,20 @@
 //birinci x i duzeltmek isteyirem
 let removeButtons = document.querySelectorAll(`ul button`);
-let list = document.querySelectorAll(`li`);
+let list = document.querySelectorAll(`li input`);
 //helelik bu qeder. !Problem x e basilanda butun listler silinir. Arasdirr
 // input elave etmek hissesi :
 
 const inputButton = document.querySelector(`.button .input`);
 const ul = document.querySelector(`ul`);
-
+let counter = 0;
 // console.log(inputButton);
 // console.log(ul);
 let data = [];
 
 inputButton.addEventListener(`click`, () => {
-  let firstLi = document.querySelector(`#first`);
+  // console.log(firstLi.value)
+  // data.push(firstLi.value);
+  // firstLi.disabled = true;
   let newLi = document.createElement(`li`);
   let newButton = document.createElement(`button`);
   let newInput = document.createElement(`input`);
@@ -25,12 +27,12 @@ inputButton.addEventListener(`click`, () => {
   newLi.append(newButton);
   newLi.append(newInput);
   ul.insertBefore(newLi, ul.children[0]);
+
   //silinme buttonun ele icinde teyin etmekle problemimiz hell tapir...
   newButton.addEventListener(`click`, (event) => {
     newLi.remove();
-    firstLi.remove();
   });
-  
+
   //Elave et duymesinin strukturunu qurmaga calisacam
 
   //Elave et dediymiz zaman diger inputlar ardiq elcatmaz olmalidir... y
@@ -43,12 +45,18 @@ inputButton.addEventListener(`click`, () => {
 
   let inputAddButton = document.querySelector(`.button .addition`);
   inputAddButton.addEventListener(`click`, (event) => {
+    // console.log(newInput.value)
+    let firstLi = document.querySelector(`#first input`);
+    data.push(firstLi.value);
+    console.log(firstLi.value);
+    firstLi.disabled = true;
     newInput.disabled = true;
-    // console.log(newInput.value);
+    data.push(newInput.value);
+    
   });
+  // console.log(data);
+  data = [];
 });
-
-console.log(data);
 
 //sort hissesi
 
@@ -57,3 +65,18 @@ console.log(data);
 
 //e.target.parrentElement()
 //getelementByClassName();
+
+const sortButton = document.querySelector(`.sort-button`);
+
+sortButton.addEventListener(`click`, () => {
+  console.log(data.sort());
+  list.forEach((item,index)=>{
+    data.sort().forEach((dataItem,dataIndex)=>{
+      if(index === dataIndex){
+        item.value = dataItem;
+        console.log(item.value)
+      }
+    })
+    
+  })
+});

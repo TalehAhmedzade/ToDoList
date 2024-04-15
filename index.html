@@ -3,45 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do-List</title>
+    <title>To Do List</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <div class="wrapper">
-      <div class="main">
-        <h1>To Do List</h1>
-        <button class="sort-button" type="button">
-          <img src="./images/Group 38.png" alt=".sortLogo" />
+    <div class="main">
+      <div class="empty"></div>
+      <h1>To Do List</h1>
+      <button class="arrangement-button">
+        <img src="./images/Group 38.png" alt="Sorting Logo" />
+      </button>
+      <div class="input-and-delete-button">
+        <input type="text" name="input-text" class="input-text" />
+        <button class="delete-button">
+          <img src="./images/clearLogo.png" alt="Clear Logo" />
         </button>
-
-        <br />
-
-        <ul class="list">
-          <!-- <form class="input-form"> -->
-            <li id="first">
-              <!-- <img src="./images/clearLogo.png" alt="clearButton" /> -->
-              <button type="button">x</button>
-              <input
-                class="input-text"
-                name="input-text"
-                type="text"
-                placeholder="Notunuzu daxil edin..."
-              />
-            </li>
-          <!-- </form> -->
-        </ul>
-
-        <br />
-        <div class="button">
-          <div>
-            <button class="input">+</button>
-
-            <button class="addition" type="submit">
-              <!-- <img src="./images/addbutton.png" alt="" /> -->
-              Əlavə et
-            </button>
-          </div>
+      </div>
+      <ul class="added-list">
+        <div class="input-and-delete-button">
+          <input disabled="true" type="text" name="input-text" class="input-text" />
+          <button class="delete-button">
+            <img src="./images/clearLogo.png" alt="Clear Logo" />
+          </button>
         </div>
+      </ul>
+
+      <div class="create-and-add-buttons">
+        <button class="create-button">+</button>
+        <button class="add-button">Əlavə et</button>
       </div>
     </div>
     <script src="./js/main.js"></script>

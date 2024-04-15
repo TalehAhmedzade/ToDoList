@@ -1,82 +1,63 @@
-//birinci x i duzeltmek isteyirem
-let removeButtons = document.querySelectorAll(`ul button`);
-let list = document.querySelectorAll(`li input`);
-//helelik bu qeder. !Problem x e basilanda butun listler silinir. Arasdirr
-// input elave etmek hissesi :
+const addButton = document.querySelector(`.add-button`);
+const mainDiv = document.querySelector(`.main`);
+const inputDiv = document.querySelector(`.input-and-delete-button`);
+const input = document.querySelector(`.input-and-delete-button input`);
+const addedList = document.querySelector(`ul`);
+const firstEmptyListButton = document.querySelector(
+  `ul .input-and-delete-button button`
+);
+const firstEmptyList = document.querySelector(`ul .input-and-delete-button`);
 
-const inputButton = document.querySelector(`.button .input`);
-const ul = document.querySelector(`ul`);
-let counter = 0;
-// console.log(inputButton);
-// console.log(ul);
-let data = [];
+const data = [];
+let dataList = [];
 
-inputButton.addEventListener(`click`, () => {
-  // console.log(firstLi.value)
-  // data.push(firstLi.value);
-  // firstLi.disabled = true;
-  let newLi = document.createElement(`li`);
-  let newButton = document.createElement(`button`);
-  let newInput = document.createElement(`input`);
-  newButton.type = `button`;
-  newButton.innerText = `x`;
-  newInput.placeholder = `Notunuzu daxil edin...`;
-  newInput.type = `text`;
-  newInput.name = `input-text`;
-  newInput.classList.add(`input-text`);
-  newLi.append(newButton);
-  newLi.append(newInput);
-  ul.insertBefore(newLi, ul.children[0]);
-
-  //silinme buttonun ele icinde teyin etmekle problemimiz hell tapir...
-  newButton.addEventListener(`click`, (event) => {
-    newLi.remove();
-  });
-
-  //Elave et duymesinin strukturunu qurmaga calisacam
-
-  //Elave et dediymiz zaman diger inputlar ardiq elcatmaz olmalidir... y
-  //ya da olmali deyil ??
-  //elave et duymesinin meqsedi inputun daxilinde yazilan metnin input daxilinde qalmagidi
-  //hee onda inputumuzda artiq deyisikliyin qarsisi alinmalidi duymeye kliklendiyi zaman
-  //formdan istifade etmeliyik.
-  // const inputForm = document.querySelector(`.input-form`)
-  // console.log(inputAddButton)
-
-  let inputAddButton = document.querySelector(`.button .addition`);
-  inputAddButton.addEventListener(`click`, (event) => {
-    // console.log(newInput.value)
-    let firstLi = document.querySelector(`#first input`);
-    data.push(firstLi.value);
-    console.log(firstLi.value);
-    firstLi.disabled = true;
-    newInput.disabled = true;
-    data.push(newInput.value);
-    
-  });
-  // console.log(data);
-  data = [];
+firstEmptyListButton.addEventListener(`click`, () => {
+  firstEmptyList.remove();
 });
 
-//sort hissesi
+addButton.addEventListener(`click`, ()=>{
+  if (input.value.trim() !== ``) {
+    addedList.style.display = `block`;
+    inputDiv.style.display = `none`;
+    const li = document.createElement(`li`);
+    addedList.append(li);
+    const div = document.createElement(`div`);
+    li.append(div);
+    div.classList.add(`input-and-delete-button`);
+    div.style.border = `none`;
+    const newInput = document.createElement(`input`);
+    newInput.type = "text";
+    newInput.className = "input-text";
+    newInput.value = input.value;
+    data.push(input.value);
+    newInput.disabled = `true`;
+    div.append(newInput);
 
-//data arrayi yaradiriq her defe elave et dediymiz zaman bu arraya innerTextimiz elave edilmelidir
-//bos deyerleri yoxlayin
+    const newButton = document.createElement(`button`);
+    newButton.classList.add(`delete-button`);
+    div.append(newButton);
 
-//e.target.parrentElement()
-//getelementByClassName();
+    const imgInButton = document.createElement(`img`);
+    imgInButton.src = `./images/clearLogo.png`;
+    imgInButton.alt = `Clear Logo`;
+    newButton.append(imgInButton);
 
-const sortButton = document.querySelector(`.sort-button`);
+    newButton.addEventListener(`click`, () => {
+      dataList.push(data.filter((inputText) => inputText !== newInput.value));
+      div.remove();
+    });
+    input.value = ``;
+  }
+});
 
-sortButton.addEventListener(`click`, () => {
-  console.log(data.sort());
-  list.forEach((item,index)=>{
-    data.sort().forEach((dataItem,dataIndex)=>{
-      if(index === dataIndex){
-        item.value = dataItem;
-        console.log(item.value)
-      }
-    })
-    
-  })
+const createButton = document.querySelector(`.create-button`);
+
+createButton.addEventListener(`click`, () => {
+  inputDiv.style.display = `block`;
+});
+
+const arrangementButton = document.querySelector(`.arrangement-button`);
+
+arrangementButton.addEventListener(`click`, () => {
+  console.log(dataList.sort());
 });

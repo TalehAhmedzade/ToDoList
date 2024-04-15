@@ -7,4 +7,6 @@ Maqsedimiz beledir:
 2. Sonra + isaresine kliklediyimiz vaxt yeni bir input yaranmalidi. Bura artiq ne istesek elave ede bilerik
 3. Eger elave et duymesine basilarsa, input artiq paragraph formasina kecmeli, ve deyer yaddasda saxlanilmalidir.
 inputu ul den istifade etmekle yaratmaq isdiyrem
-eger bu strukturu qura bilsem, elave olaraq 
+eger bu strukturu qura bilsem, elave olaraq
+
+sturturu qura bilmedim tam ferqli qurulus yaratdim

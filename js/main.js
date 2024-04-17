@@ -9,11 +9,18 @@ const firstEmptyListButton = document.querySelector(
 const firstEmptyList = document.querySelector(`ul .input-and-delete-button`);
 
 const data = [];
-let dataList = [];
 
 firstEmptyListButton.addEventListener(`click`, () => {
   firstEmptyList.remove();
+  data = data.filter((list) => list != newInput.textContent);
 });
+const firstEmptyListImgInButton = document.querySelector(`ul .input-and-delete-button button img`)
+firstEmptyListButton.addEventListener(`mouseover`,()=>{
+  firstEmptyListImgInButton.src = `./images/clearLogoHover.png`;
+})
+firstEmptyListButton.addEventListener(`mouseout`,()=>{
+  firstEmptyListImgInButton.src = `./images/clearLogo.png`;
+})
 
 addButton.addEventListener(`click`, ()=>{
   if (input.value.trim() !== ``) {
@@ -41,10 +48,16 @@ addButton.addEventListener(`click`, ()=>{
     imgInButton.src = `./images/clearLogo.png`;
     imgInButton.alt = `Clear Logo`;
     newButton.append(imgInButton);
-
+    newButton.addEventListener(`mouseover`,()=>{
+      imgInButton.src = `./images/clearLogoHover.png`;
+    })
+    newButton.addEventListener(`mouseout`,()=>{
+      imgInButton.src = `./images/clearLogo.png`;
+    })
     newButton.addEventListener(`click`, () => {
-      dataList.push(data.filter((inputText) => inputText !== newInput.value));
       div.remove();
+      data = data.filter((list) => list != newInput.value);
+      
     });
     input.value = ``;
   }
@@ -56,8 +69,39 @@ createButton.addEventListener(`click`, () => {
   inputDiv.style.display = `block`;
 });
 
-const arrangementButton = document.querySelector(`.arrangement-button`);
 
-arrangementButton.addEventListener(`click`, () => {
-  console.log(dataList.sort());
+
+const arrangementButton = document.querySelector(`.arrangement-button`);
+const arrangementImgInButton = document.querySelector(`.arrangement-button img`);
+console.log(arrangementButton);
+console.log(arrangementImgInButton);
+arrangementButton.addEventListener(`mouseover`,(e)=>{
+  arrangementImgInButton.src = `./images/BlackArrangementBottom.png`;
+  e.preventDefault();
+})
+arrangementButton.addEventListener(`mouseout`,(e)=>{
+  arrangementImgInButton.src = `./images/Group 38.png`;
+  e.preventDefault();
+})
+arrangementButton.addEventListener("click", (e) => {
+  if (arrangementImgInButton.getAttribute("src") === "./images/BlackArrangementBottom.png") {
+    arrangementImgInButton.setAttribute("src", "./images/GrayArrangementTop.png");
+    let noteList = document.querySelectorAll("ul li div input");
+    noteList.forEach((note)=>{
+      console.log(note)
+    })
+    data.sort();
+    Array.from(noteList).forEach((input, i) => {
+      input.value = data[i];
+    });
+  } 
+  else {
+    arrangementImgInButton.setAttribute("src", "./images/Group 38.png");
+    let noteList = document.querySelectorAll("ul li div input");
+    data.sort().reverse();
+    Array.from(noteList).forEach((input, i) => {
+      input.value = data[i];
+    });
+  }
+  e.preventDefault();
 });

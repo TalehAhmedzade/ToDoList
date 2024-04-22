@@ -7,22 +7,25 @@ const firstEmptyListButton = document.querySelector(
   `ul .input-and-delete-button button`
 );
 const firstEmptyList = document.querySelector(`ul .input-and-delete-button`);
-
-const data = [];
+const firstEmptyListInput = document.querySelector(
+  `ul .input-and-delete-button input`
+);
+let data = [];
 
 firstEmptyListButton.addEventListener(`click`, () => {
   firstEmptyList.remove();
-  data = data.filter((list) => list != newInput.textContent);
 });
-const firstEmptyListImgInButton = document.querySelector(`ul .input-and-delete-button button img`)
-firstEmptyListButton.addEventListener(`mouseover`,()=>{
+const firstEmptyListImgInButton = document.querySelector(
+  `ul .input-and-delete-button button img`
+);
+firstEmptyListButton.addEventListener(`mouseover`, () => {
   firstEmptyListImgInButton.src = `./images/clearLogoHover.png`;
-})
-firstEmptyListButton.addEventListener(`mouseout`,()=>{
+});
+firstEmptyListButton.addEventListener(`mouseout`, () => {
   firstEmptyListImgInButton.src = `./images/clearLogo.png`;
-})
+});
 
-addButton.addEventListener(`click`, ()=>{
+addButton.addEventListener(`click`, () => {
   if (input.value.trim() !== ``) {
     addedList.style.display = `block`;
     inputDiv.style.display = `none`;
@@ -48,16 +51,15 @@ addButton.addEventListener(`click`, ()=>{
     imgInButton.src = `./images/clearLogo.png`;
     imgInButton.alt = `Clear Logo`;
     newButton.append(imgInButton);
-    newButton.addEventListener(`mouseover`,()=>{
+    newButton.addEventListener(`mouseover`, () => {
       imgInButton.src = `./images/clearLogoHover.png`;
-    })
-    newButton.addEventListener(`mouseout`,()=>{
+    });
+    newButton.addEventListener(`mouseout`, () => {
       imgInButton.src = `./images/clearLogo.png`;
-    })
+    });
     newButton.addEventListener(`click`, () => {
       div.remove();
       data = data.filter((list) => list != newInput.value);
-      
     });
     input.value = ``;
   }
@@ -69,39 +71,102 @@ createButton.addEventListener(`click`, () => {
   inputDiv.style.display = `block`;
 });
 
-
-
 const arrangementButton = document.querySelector(`.arrangement-button`);
-const arrangementImgInButton = document.querySelector(`.arrangement-button img`);
-console.log(arrangementButton);
-console.log(arrangementImgInButton);
-arrangementButton.addEventListener(`mouseover`,(e)=>{
+const arrangementImgInButton = document.querySelector(
+  `.arrangement-button img`
+);
+arrangementButton.addEventListener(`mouseover`, (e) => {
   arrangementImgInButton.src = `./images/BlackArrangementBottom.png`;
   e.preventDefault();
-})
-arrangementButton.addEventListener(`mouseout`,(e)=>{
+});
+arrangementButton.addEventListener(`mouseout`, (e) => {
   arrangementImgInButton.src = `./images/Group 38.png`;
   e.preventDefault();
-})
+});
+
+// else if(arrangementImgInButton.src === `./images/GrayArrangementTop`){
+//   arrangementButton.addEventListener(`mouseover`, (e) => {
+//     arrangementImgInButton.src = `./images/BlackArrangementTop.png`;
+//     e.preventDefault();
+//   });
+//   arrangementButton.addEventListener(`mouseout`, (e) => {
+//     arrangementImgInButton.src = `./images/GrayArrangementTop.png`;
+//     e.preventDefault();
+//   });
+// }
+
 arrangementButton.addEventListener("click", (e) => {
-  if (arrangementImgInButton.getAttribute("src") === "./images/BlackArrangementBottom.png") {
-    arrangementImgInButton.setAttribute("src", "./images/GrayArrangementTop.png");
-    let noteList = document.querySelectorAll("ul li div input");
-    noteList.forEach((note)=>{
-      console.log(note)
-    })
-    data.sort();
-    Array.from(noteList).forEach((input, i) => {
-      input.value = data[i];
+  if (
+    arrangementImgInButton.getAttribute("src") ===
+    "./images/BlackArrangementBottom.png"
+  ) {
+    arrangementImgInButton.setAttribute(
+      "src",
+      "./images/GrayArrangementTop.png"
+    );
+    arrangementButton.addEventListener(`mouseover`, (e) => {
+      arrangementImgInButton.src = `./images/BlackArrangementTop.png`;
+      e.preventDefault();
     });
-  } 
-  else {
-    arrangementImgInButton.setAttribute("src", "./images/Group 38.png");
+    arrangementButton.addEventListener(`mouseout`, (e) => {
+      arrangementImgInButton.src = `./images/GrayArrangementTop.png`;
+      e.preventDefault();
+    });
+
     let noteList = document.querySelectorAll("ul li div input");
-    data.sort().reverse();
-    Array.from(noteList).forEach((input, i) => {
-      input.value = data[i];
+    data.sort(function (a, b) {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+    noteList.forEach((input, index) => {
+      input.value = data[index];
+    });
+  } else {
+    arrangementImgInButton.setAttribute("src", "./images/Group 38.png");
+    arrangementButton.addEventListener(`mouseover`, (e) => {
+      arrangementImgInButton.src = `./images/BlackArrangementBottom.png`;
+      e.preventDefault();
+    });
+    arrangementButton.addEventListener(`mouseout`, (e) => {
+      arrangementImgInButton.src = `./images/Group 38.png`;
+      e.preventDefault();
+    });
+    let noteList = document.querySelectorAll("ul li div input");
+    data
+      .sort(function (a, b) {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      })
+      .reverse();
+    noteList.forEach((input, index) => {
+      input.value = data[index];
     });
   }
+  console.log(data);
   e.preventDefault();
 });
+
+
+
+
+//drag and dropa aid numune arasdir!
+// function allowDrop(ev) {
+//   ev.preventDefault();
+// }
+
+// function drag(ev) {
+//   ev.dataTransfer.setData("text", ev.target.id);
+// }
+
+// function drop(ev) {
+//   ev.preventDefault();
+//   var data = ev.dataTransfer.getData("text");
+//   ev.target.appendChild(document.getElementById(data));
+// }
+// </script>
+// </head>
+// <body>
+
+// <p>Drag the W3Schools image into the rectangle:</p>
+
+// <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+// <br>
+// <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">

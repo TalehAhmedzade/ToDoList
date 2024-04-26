@@ -148,25 +148,53 @@ arrangementButton.addEventListener("click", (e) => {
 
 
 //drag and dropa aid numune arasdir!
-// function allowDrop(ev) {
-//   ev.preventDefault();
-// }
 
-// function drag(ev) {
-//   ev.dataTransfer.setData("text", ev.target.id);
-// }
+// Event handler for allowing drop operations.
+function allowDrop(ev) {
+  ev.preventDefault(); // Prevent default behavior to allow dropping.
+}
 
-// function drop(ev) {
-//   ev.preventDefault();
-//   var data = ev.dataTransfer.getData("text");
-//   ev.target.appendChild(document.getElementById(data));
-// }
-// </script>
-// </head>
-// <body>
+// Event handler for starting a drag operation.
+function drag(ev) {
+  // Set the ID of the element being dragged.
+  ev.dataTransfer.setData("text", ev.target.id);
+}
 
-// <p>Drag the W3Schools image into the rectangle:</p>
+// Event handler for dropping a dragged item.
+function drop(ev) {
+  ev.preventDefault(); // Prevent default behavior to allow dropping.
+  // Get the ID of the element being dropped.
+  const draggedElementId = ev.dataTransfer.getData("text");
+  const draggedElement = document.getElementById(draggedElementId);
 
-// <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-// <br>
-// <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
+  // If the drop target is a list item or a list div, insert the dragged element before it.
+  if (ev.target.tagName === "LI" || ev.target.classList.contains("input-and-delete-button")) {
+    const targetElement = ev.target.closest("li");
+    // Insert the dragged element before the target element.
+    targetElement.parentNode.insertBefore(draggedElement.parentNode, targetElement);
+  }
+}
+
+// Add drag-and-drop attributes and event handlers to existing list items.
+function setupDragAndDrop() {
+  // Get all list items.
+  const listItems = document.querySelectorAll("ul li div");
+
+  listItems.forEach((div) => {
+    const li = div.parentNode;
+    // Set a unique ID to the list item.
+    li.setAttribute("id", `list-item-${Math.random().toString(36).substring(7)}`);
+    // Make the list item draggable.
+    div.setAttribute("draggable", "true");
+    // Add drag event handlers.
+    div.addEventListener("dragstart", drag);
+  });
+
+  const listContainer = document.querySelector("ul");
+  // Add the drop and allowDrop event handlers to the list container.
+  listContainer.addEventListener("dragover", allowDrop);
+  listContainer.addEventListener("drop", drop);
+}
+
+// Call setupDragAndDrop to initialize drag-and-drop functionality.
+setupDragAndDrop();
